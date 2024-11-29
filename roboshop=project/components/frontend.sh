@@ -12,4 +12,4 @@ rm -rf /usr/share/nginx/html* &>>$LOG_FILE
 
 echo "Extend Frontend content"
 cd /tmp
-unzip /tmp/frontend.zip &>>$LOG_FILE
+unzip -o frontend.zip &>>$LOG_FILE
