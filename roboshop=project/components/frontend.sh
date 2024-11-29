@@ -1,16 +1,3 @@
-# # systemctl enable nginx
-# # systemctl start nginx
-#
-# ​
-# Let's download the HTDOCS content and deploy under the Nginx path.
-# # curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
-# ​
-# Deploy the downloaded content in Nginx Default Location.
-# # cd /usr/share/nginx/html
-# # rm -rf *
-# # unzip /tmp/frontend.zip
-# # mv frontend-main/static/* .
-# # mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
 LOG_FILE=/tmp/roboshop.log
 rm -f $LOG_FILE
 
@@ -29,3 +16,10 @@ unzip /tmp/frontend.zip &>>$LOG_FILE
 
 echo "Copy extracted content to nginx path"
 cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
+
+echo "Copy nginx roboshop config"
+cp -r frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
+
+echo "Start nginx service"
+systemctl enable nginx &>>$LOG_FILE
+systemctl start nginx &>>$LOG_FILE
