@@ -25,6 +25,10 @@
 # # mongo < users.js
 
 source components/common.sh
-echo "Install mongodb"
+
+echo "Download mongodb repo file"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo
+
+echo "Install mongodb"
+yum install -y mongodb-org
 
