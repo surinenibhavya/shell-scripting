@@ -1,5 +1,3 @@
-# To Install Nginx.
-# #
 # # systemctl enable nginx
 # # systemctl start nginx
 #
@@ -13,10 +11,11 @@
 # # unzip /tmp/frontend.zip
 # # mv frontend-main/static/* .
 # # mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
+rm -f /tmp/roboshop.log
+
 echo "Installing NGINX"
 yum install nginx -y >>/tmp/roboshop.log
 
 echo "Frontend content"
 curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" >>/tmp/roboshop.log
 
-echo ""
