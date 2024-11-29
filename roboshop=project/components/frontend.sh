@@ -24,7 +24,7 @@ echo "Clean old data"
 rm -rf /usr/share/nginx/html* &>>$LOG_FILE
 
 echo "Extend Frontend content"
-cd/tmp
+cd /tmp
 unzip /tmp/frontend.zip &>>$LOG_FILE
 
 echo "Copy extracted content to nginx path"
