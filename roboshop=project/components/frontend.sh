@@ -15,7 +15,7 @@
 # # mv frontend-main/static/* .
 # # mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
 echo "Installing NGINX"
-yum install nginx -y
+yum install nginx -y >/tmp/roboshop.log
 
 
 
