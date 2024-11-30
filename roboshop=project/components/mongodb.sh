@@ -14,10 +14,13 @@ systemctl enable mongod &>>$LOG_FILE
 systemctl start mongod &>>$LOG_FILE
 
 echo "Downlaod Schema"
+curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>$LOG_FILE
+
+echo "Extract Schema"
 cd /tmp
-unzip mongodb.zip &>>$LOG_FILE
+unzip -o mongodb.zip &>>$LOG_FILE
 
 echo "Load Schema"
 cd mongodb-main
 mongo < catalogue.js &>>$LOG_FILE
- mongo < users.js &>>$LOG_FILE
+mongo < users.js &>>$LOG_FILE
