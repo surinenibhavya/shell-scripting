@@ -17,3 +17,6 @@ rm -rf  /home/roboshop/catalogue
 ls
 cp -r catalogue-main /home/roboshop/catalogue
 
+cd /home/roboshop/catalogue
+npm install
+echo "done"
