@@ -20,4 +20,4 @@ cd /home/roboshop/catalogue
 
 npm install
 
-echo ":HI"
+echo "HI"
