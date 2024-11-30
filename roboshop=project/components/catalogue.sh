@@ -23,5 +23,5 @@ echo "Copy catalogue code"
 cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
 
 echo ".."
-cd /home/roboshop/catalogue
+cd /home/roboshop/catalogue  &>>$LOG_FILE
 npm install &>>$LOG_FILE
