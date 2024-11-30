@@ -14,5 +14,6 @@ unzip -o /tmp/catalogue.zip
 
 rm -rf  /home/roboshop/catalogue
 
-cp -r catalogue.main /home/roboshop/catalogue
+ls
+
 
