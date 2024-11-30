@@ -22,3 +22,6 @@ rm -rf /home/roboshop/catalogue
 echo "Copy catalogue code"
 cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
 
+echo ".."
+cd /home/roboshop/catalogue
+npm install &>>$LOG_FILE
