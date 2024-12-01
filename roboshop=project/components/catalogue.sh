@@ -31,7 +31,7 @@ chown roboshop:roboshop /home/roboshop/ -R
 
 
 echo "Update System file"
-sed -i -e 's/MONGO_DSNAME/172.31.32.192/'  cat /home/roboshop/catalogue/systemd.service &>>$LOG_FILE
+sed -i -e 's/MONGO_DSNAME/172.31.32.192/'  /home/roboshop/catalogue/systemd.service &>>$LOG_FILE
 
 echo "Setup catalogue file"
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
