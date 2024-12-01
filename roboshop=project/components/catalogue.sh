@@ -28,22 +28,18 @@ npm install &>>$LOG_FILE
 
 chown roboshop:roboshop /home/roboshop/ -R
 
+
+
 echo "Update System file"
-sudo sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop-internal/' /home/roboshop/catalogue/systemd.service
+sed -i -e 's/MONGO_DSNAME/172.31.32.192/'  cat /home/roboshop/catalogue/systemd.service &>>$LOG_FILE
 
 echo "Setup catalogue file"
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
 
 echo "Start catalogue"
-systemctl daemon-reload systemctl start catalogue systemctl enable catalogue
+systemctl daemon-reload
+systemctl start catalogue
+systemctl enable catalogue
 
-echo "Checking MongoDB Service"
-systemctl status mongod
-
-echo "Checking MongoDB Connection"
-nc -zv mongodb.roboshop-internal 27017
-
-echo "Checking MongoDB DNS Resolution"
-ping -c 4 mongodb.roboshop-internal
 
 
