@@ -29,5 +29,5 @@ npm install &>>$LOG_FILE
 chown roboshop:roboshop /home/roboshop/ -R
 
 echo "Update System file"
-sed -i '/s/MONGO_DSNAME/l/' /home/roboshop/catalogue/systemd.service
+sed -i -e '/s/MONGO_DSNAME/m/' /home/roboshop/catalogue/systemd.service &>>$LOG_FILE
 cat /home/roboshop/catalogue/systemd.service
