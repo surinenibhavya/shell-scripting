@@ -32,5 +32,8 @@ sudo sed -i -e 's/MONGO_DNSNAME/172.31.32.192/' /home/roboshop/catalogue/systemd
 
 sudo cat /home/roboshop/catalogue/systemd.service
 
-
+mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
+systemctl daemon-reload
+systemctl start catalogue
+systemctl enable catalogue
 
