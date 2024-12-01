@@ -28,6 +28,9 @@ npm install &>>$LOG_FILE
 
 chown roboshop:roboshop /home/roboshop/ -R
 
+sudo sed -i -e 's/MONGO_DNSNAME/172.31.32.192/' /home/roboshop/catalogue/systemd.service
+
+sudo cat /home/roboshop/catalogue/systemd.service
 
 
 
