@@ -34,7 +34,7 @@ sed -i -e '/s/MONGO_DSNAME/mongodb.roboshop-internal/' /home/roboshop/catalogue/
 echo "Setup catalogue file"
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
 
-echo"Start catalogue"
+echo "Start catalogue"
 systemctl daemon-reload
 systemctl start catalogue
 systemctl enable catalogue
