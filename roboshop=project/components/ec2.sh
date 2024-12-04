@@ -1,5 +1,6 @@
 #!/bin/bash
-echo $1
+echo $1 # First Argument
+
 INSTANCE_NAME=$1
 if [ -z "${INSTANCE_NAME}" ]; then
   echo -e "\e[1;33mInstance name argument is needed\e[0m"
