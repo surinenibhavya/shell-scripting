@@ -7,11 +7,4 @@ else
   echo -e "\e[1;32mAMI ID = ${AMI_ID}\e[0m"
 fi
 
-aws ec2 run-instances \
-    --image-id ami-0abcdef1234567890 \
-    --instance-type t2.micro \
-    --count 1 \
-    --subnet-id subnet-08fc749671b2d077c \
-    --key-name MyKeyPair \
-    --security-group-ids sg-0b0384b66d7d692f9 \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=server,Value=production}]' 'ResourceType=volume,Tags=[{Key=cost-center,Value=cc123}]'
+aws ec2 run-instances --image-id ${AMI_ID} -instance-type t3.micro --output text
