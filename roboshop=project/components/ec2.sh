@@ -1,8 +1,7 @@
 #!/bin/bash
 
 INSTANCE_NAME=$1
-if[ -z "${INSTANCE_NAME}" ]
-then
+if [ -z "${INSTANCE_NAME}" ]; then
  echo "argument needed"
 fi
 
