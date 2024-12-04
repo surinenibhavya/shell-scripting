@@ -53,17 +53,3 @@ INSTANCE_CREATE() {
   aws route53 change-resource-record-sets --hosted-zone-id $ZONE_ID --change-batch file:///tmp/record.json --output text &>>$LOG
   echo -e "\e[1m DNS Record Created\e[0m"
 }
-
-### Main Program
-
-
-if [ "$1" == "list" ]; then
-  aws ec2 describe-instances  --query "Reservations[*].Instances[*].{PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  --output table
-  exit
-elif [ "$1" == "all" ]; then
-  for component in cart catalogue dispatch frontend mongodb mysql payment rabbitmq redis shipping user ; do
-    INSTANCE_CREATE ${component}
-  done
-else
-  INSTANCE_CREATE $1
-fi
