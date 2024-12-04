@@ -7,4 +7,3 @@ if [-z "$(AMI_ID)"]; then
 else
  echo AMI ID =$(AMI_ID)
 fi
-
