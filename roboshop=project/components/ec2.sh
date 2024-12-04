@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTANCE_NAME=$1
+INSTANCE_NAME = $1
 if [ -z "${INSTANCE_NAME}" ]; then
   echo "Instance name argument is needed"
 fi
