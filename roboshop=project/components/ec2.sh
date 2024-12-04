@@ -1,7 +1,7 @@
 #!/bin/bash
 INSTANCE_NAME=$1
 if [ -z "${INSTANCE_NAME}" ]; then
- echo "Instanc ename argumnet is neeeded"
+ echo "Instance name argumnet is neeeded"
  exit
 fi
 
