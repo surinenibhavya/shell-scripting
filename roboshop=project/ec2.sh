@@ -22,5 +22,4 @@ else
  echo "Already ${INSTANCE_NAME} is there"
 fi
 
-aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptBehaviour=stop,SpotInstanceType=persistent}"
 
