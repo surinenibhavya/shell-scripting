@@ -22,7 +22,7 @@ if [ -z "${PRIVATE_IP}" ]; then
    echo "Security group does not exist"
    exit
  fi
- aws ec2 run-instances --image-id "${AMI_ID}" --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids"${SG_ID}"
+ aws ec2 run-instances --image-id "${AMI_ID}" --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids "${SG_ID}"
 else
  echo "Already ${INSTANCE_NAME} is there"
 fi
