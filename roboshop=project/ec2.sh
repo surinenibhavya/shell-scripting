@@ -40,4 +40,3 @@ echo '{
                                    "ResourceRecords": [{ "Value": "IPADDRESS"}]
 }}]
 }' | sed -e "s/DNSNAME/${INSTANCE_NAME}/" -e "s/IPADDRESS/${IPADDRESS}/"  >/tmp/record.json
-
