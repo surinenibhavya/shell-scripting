@@ -2,7 +2,12 @@ source components/common.sh
 
 echo "Installing NGINX"
 yum install nginx -y &>>$LOG_FILE
-
+if[ $? -eq 0 ] then;
+ echo "Success"
+else
+ echo "Fail"
+ exit
+fi
 echo "Frontend content"
 curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$LOG_FILE
 
