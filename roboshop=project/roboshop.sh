@@ -1,7 +1,7 @@
 #!/bin/bash
 ID=$(id -u)
 if [ $ID -ne 0 ]; then
- echo "you should be roou user to execute the script"
+ echo "you should be root user to execute the script"
  exit
 fi
 
