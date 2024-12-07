@@ -1,4 +1,10 @@
 #!/bin/bash
+ID=$(id -u)
+if [ $ID -ne 0 ]; then
+ echo "you should be roou user to execute the script"
+ exit
+fi
+
 if [ -f components/$1.sh ]; then
   bash components/$1.sh
 else
