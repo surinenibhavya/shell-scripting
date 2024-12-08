@@ -7,3 +7,4 @@ echo "b"
 }
 
 SAMPLE
+SAMPLE
