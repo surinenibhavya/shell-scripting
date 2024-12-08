@@ -22,7 +22,7 @@ cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
 STAT $?
 
 echo "Copy nginx roboshop config"
-cp  frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
+cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 STAT $?
 
 echo "Start nginx"
