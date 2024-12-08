@@ -1,26 +1,26 @@
 source components/common.sh
 
 echo "Setup NodeJS repo"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
 echo "Install NodeJS"
-yum install nodejs -y &>>$LOG_FILE
+yum install nodejs -y
 
 echo "Create App user"
-useradd roboshop &>>$LOG_FILE
+useradd roboshop
 
 echo "Download catalogue code"
-curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>$LOG_FILE
+curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip"
 
 echo "Extract catalogue code"
 cd /tmp/
-unzip -o catalogue.zip &>>$LOG_FILE
+unzip -o catalogue.zip
 
 echo "Clean old catalogue"
 rm -rf  /home/roboshop/catalogue
 
 echo "Copy catalogue content"
-cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
+cp -r catalogue-main /home/roboshop/catalogue
 
 echo "Install NodeJS Dependencies"
 cd /home/roboshop/catalogue
