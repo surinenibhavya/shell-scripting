@@ -3,6 +3,7 @@
 SAMPLE()
 {
 echo "a"
+return
 echo "b"
 }
 
