@@ -30,6 +30,7 @@ fi
 echo "Extend Frontend content"
 cd /tmp
 unzip -o frontend.zip &>>$LOG_FILE
+echo "ls"
 if [ $? -eq 0 ]; then
  echo "Success"
 else
