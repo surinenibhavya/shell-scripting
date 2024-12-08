@@ -17,9 +17,11 @@ cd /tmp
 unzip -o frontend.zip &>>$LOG_FILE
 STAT $?
 
-echo "Copy extracted content to nginx path"
+
+echo "Copy Extracted Content to Nginx Path"
 cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
 STAT $?
+
 
 echo "Copy nginx roboshop config"
 cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
