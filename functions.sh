@@ -13,4 +13,4 @@ S()
 {
 echo "print $1"
 }
-S noooo
+S
