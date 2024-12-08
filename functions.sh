@@ -13,4 +13,5 @@ S()
 {
 echo "print $1"
 }
+echo "fff $1"
 S
