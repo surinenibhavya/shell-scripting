@@ -38,7 +38,7 @@ echo '{
               "Changes": [{
               "Action": "UPSERT",
                           "ResourceRecordSet": {
-                                      "Name": "DNSNAME",
+                                      "Name": "DNSNAME.roboshop.internal",
                                       "Type": "A",
                                       "TTL": 300,
                                    "ResourceRecords": [{ "Value": "IPADDRESS"}]
