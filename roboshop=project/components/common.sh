@@ -64,8 +64,8 @@ STAT $?
 
 echo "Start ${Component}"
 systemctl daemon-reload &>>$LOG_FILE
-systemctl start ${Component} &>>$LOG_FILE
 systemctl enable ${Component}&>>$LOG_FILE
+systemctl restart ${Component} &>>$LOG_FILE
 STAT $
 
 }
