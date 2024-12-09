@@ -24,49 +24,49 @@ STAT $?
 
 echo "Create App user"
 id roboshop &>>$LOG_FILE
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
  useradd roboshop&>>$LOG_FILE
 fi
 STAT $?
 
 
-echo "Download $(Component) code"
-curl -s -L -o /tmp/$(Component).zip "https://github.com/roboshop-devops-project/$(Component)/archive/main.zip" &>>$LOG_FILE
+echo "Download ${Component} code"
+curl -s -L -o /tmp/${Component}.zip "https://github.com/roboshop-devops-project/${Component}/archive/main.zip" &>>$LOG_FILE
 STAT $?
 
-echo "Extract $(Component) code"
+echo "Extract ${Component} code"
 cd /tmp/
-unzip -o $(Component).zip &>>$LOG_FILE
+unzip -o ${Component}.zip &>>$LOG_FILE
 STAT $?
 
-echo "Clean old $(Component)"
-rm -rf  /home/roboshop/$(Component) &>>$LOG_FILE
+echo "Clean old ${Component}"
+rm -rf  /home/roboshop/${Component} &>>$LOG_FILE
 STAT $?
 
-echo "Copy $(Component) content"
-cp -r $(Component)-main /home/roboshop/$(Component) &>>$LOG_FILE &>>$LOG_FILE
+echo "Copy ${Component} content"
+cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE &>>$LOG_FILE
 STAT $?
 
 echo "Install NodeJS Dependencies"
-cd /home/roboshop/$(Component)
+cd /home/roboshop/${Component}
 npm install &>>$LOG_FILE
 STAT $?
 
 chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
 echo "Update systemd file"
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/$(Component)/systemd.service &>>$LOG_FILE
-cat /home/roboshop/$(Component)/systemd.service
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/${Component}/systemd.service &>>$LOG_FILE
+cat /home/roboshop/${Component}/systemd.service
 STAT $?
 
-echo "Setup $(Component) systemd file"
-mv /home/roboshop/$(Component)/systemd.service /etc/systemd/system/$(Component).service &>>$LOG_FILE
+echo "Setup ${Component} systemd file"
+mv /home/roboshop/${Component}/systemd.service /etc/systemd/system/${Component}.service &>>$LOG_FILE
 STAT $?
 
-echo "Start $(Component)"
+echo "Start ${Component}"
 systemctl daemon-reload &>>$LOG_FILE
-systemctl start $(Component) &>>$LOG_FILE
-systemctl enable $(Component)&>>$LOG_FILE
+systemctl start ${Component} &>>$LOG_FILE
+systemctl enable ${Component}&>>$LOG_FILE
 STAT $
 
 }
