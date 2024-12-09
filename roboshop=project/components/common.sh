@@ -23,8 +23,12 @@ yum install nodejs -y &>>$LOG_FILE
 STAT $?
 
 echo "Create App user"
-useradd roboshop
+id roboshop &>>$LOG_FILE
+if [ $? -ne 0]; then
+ useradd roboshop&>>$LOG_FILE
+fi
 STAT $?
+
 
 echo "Download $(Component) code"
 curl -s -L -o /tmp/$(Component).zip "https://github.com/roboshop-devops-project/$(Component)/archive/main.zip" &>>$LOG_FILE
