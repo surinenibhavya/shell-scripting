@@ -10,3 +10,57 @@ STAT()
   exit 2
  fi
 }
+
+NODEJS()
+{
+Component=$1
+echo "Setup NodeJS repo"
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+STAT $?
+
+echo "Install NodeJS"
+yum install nodejs -y &>>$LOG_FILE
+STAT $?
+
+echo "Create App user"
+useradd roboshop
+STAT $?
+
+echo "Download $(Component) code"
+curl -s -L -o /tmp/$(Component).zip "https://github.com/roboshop-devops-project/$(Component)/archive/main.zip" &>>$LOG_FILE
+STAT $?
+
+echo "Extract $(Component) code"
+cd /tmp/
+unzip -o $(Component).zip &>>$LOG_FILE
+STAT $?
+
+echo "Clean old $(Component)"
+rm -rf  /home/roboshop/$(Component) &>>$LOG_FILE
+STAT $?
+
+echo "Copy $(Component) content"
+cp -r $(Component)-main /home/roboshop/$(Component) &>>$LOG_FILE &>>$LOG_FILE
+STAT $?
+
+echo "Install NodeJS Dependencies"
+cd /home/roboshop/$(Component)
+npm install &>>$LOG_FILE
+STAT $?
+
+chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
+
+echo "Update systemd file"
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/$(Component)/systemd.service &>>$LOG_FILE
+cat /home/roboshop/$(Component)/systemd.service
+STAT $?
+
+echo "Setup $(Component) systemd file"
+mv /home/roboshop/$(Component)/systemd.service /etc/systemd/system/$(Component).service &>>$LOG_FILE
+STAT $?
+
+echo "Start $(Component)"
+systemctl daemon-reload &>>$LOG_FILE
+systemctl start $(Component) &>>$LOG_FILE
+systemctl enable $(Component)&>>$LOG_FILE
+STAT $}
