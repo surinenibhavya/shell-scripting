@@ -55,7 +55,7 @@ STAT $?
 chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
 echo "Update systemd file"
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/${Component}/systemd.service &>>$LOG_FILE
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
 STAT $?
 
 echo "Setup ${Component} systemd file"
