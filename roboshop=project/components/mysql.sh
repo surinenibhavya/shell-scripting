@@ -19,8 +19,9 @@ echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('RoboShop@1');
 uninstall plugin validate_password;" >/tmp/pass.sql
 
 echo "Change Default password"
-mysql -uroot -p"${DEFAULT_PASSWORD}" <tmp/pass.sql
+mysql -uroot -p"${DEFAULT_PASSWORD}" >tmp/pass.sql
 STAT $?
+
 
 
 
