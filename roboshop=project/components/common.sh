@@ -10,25 +10,14 @@ STAT()
   exit 2
  fi
 }
-
-NODEJS()
+APP_USER_SETUP_WITH_APP()
 {
-Component=$1
-echo "Setup NodeJS repo"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
-STAT $?
-
-echo "Install NodeJS"
-yum install nodejs -y &>>$LOG_FILE
-STAT $?
-
 echo "Create App user"
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
  useradd roboshop&>>$LOG_FILE
 fi
 STAT $?
-
 
 echo "Download ${Component} code"
 curl -s -L -o /tmp/${Component}.zip "https://github.com/roboshop-devops-project/${Component}/archive/main.zip" &>>$LOG_FILE
@@ -47,6 +36,21 @@ echo "Copy ${Component} content"
 cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE &>>$LOG_FILE
 STAT $?
 
+}
+NODEJS()
+{
+Component=$1
+echo "Setup NodeJS repo"
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+STAT $?
+
+echo "Install NodeJS"
+yum install nodejs -y &>>$LOG_FILE
+STAT $?
+
+APP_USER_SETUP_WITH_APP
+
+
 echo "Install NodeJS Dependencies"
 cd /home/roboshop/${Component}
 npm install &>>$LOG_FILE
@@ -55,7 +59,7 @@ STAT $?
 chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
 echo "Update systemd file"
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' e 's/DBHOST/mysql.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
 STAT $?
 
 echo "Setup ${Component} systemd file"
@@ -67,5 +71,20 @@ systemctl daemon-reload &>>$LOG_FILE
 systemctl enable ${Component}&>>$LOG_FILE
 systemctl restart ${Component} &>>$LOG_FILE
 STAT $
+}
+JAVA()
+{
+echo "Install maven"
+yum install maven -y &>>$LOG_FILE
+STAT$?
+
+APP_USER_SETUP_WITH_APP
+
+echo "Compile ${COMPONENT} Code"
+cd /home/roboshop/${COMPONENT}
+mvn clean package &>>$LOG_FILE
+mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
+STAT $?
+
 
 }
