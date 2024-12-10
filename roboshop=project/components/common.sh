@@ -12,30 +12,47 @@ STAT()
 }
 APP_USER_SETUP_WITH_APP()
 {
-echo "Create App user"
-id roboshop &>>$LOG_FILE
-if [ $? -ne 0 ]; then
+ echo "Create App user"
+ id roboshop &>>$LOG_FILE
+ if [ $? -ne 0 ]; then
  useradd roboshop&>>$LOG_FILE
-fi
-STAT $?
+ fi
+ STAT $?
 
-echo "Download ${Component} code"
-curl -s -L -o /tmp/${Component}.zip "https://github.com/roboshop-devops-project/${Component}/archive/main.zip" &>>$LOG_FILE
-STAT $?
+ echo "Download ${Component} code"
+ curl -s -L -o /tmp/${Component}.zip "https://github.com/roboshop-devops-project/${Component}/archive/main.zip" &>>$LOG_FILE
+ STAT $?
 
-echo "Extract ${Component} code"
-cd /tmp/
-unzip -o ${Component}.zip &>>$LOG_FILE
-STAT $?
+ echo "Extract ${Component} code"
+ cd /tmp/
+ unzip -o ${Component}.zip &>>$LOG_FILE
+ STAT $?
 
-echo "Clean old ${Component}"
-rm -rf  /home/roboshop/${Component} &>>$LOG_FILE
-STAT $?
+ echo "Clean old ${Component}"
+ rm -rf  /home/roboshop/${Component} &>>$LOG_FILE
+ STAT $?
 
-echo "Copy ${Component} content"
-cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE &>>$LOG_FILE
-STAT $?
+ echo "Copy ${Component} content"
+ cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE &>>$LOG_FILE
+ STAT $?
+}
+SYSTEMD_SETUP()
+{
+ chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
+  echo "Update systemd file"
+ sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' e 's/DBHOST/mysql.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
+ STAT $?
+
+ echo "Setup ${Component} systemd file"
+ mv /home/roboshop/${Component}/systemd.service /etc/systemd/system/${Component}.service &>>$LOG_FILE
+ STAT $?
+
+ echo "Start ${Component}"
+ systemctl daemon-reload &>>$LOG_FILE
+ systemctl enable ${Component}&>>$LOG_FILE
+ systemctl restart ${Component} &>>$LOG_FILE
+ STAT $
 }
 NODEJS()
 {
@@ -56,21 +73,8 @@ cd /home/roboshop/${Component}
 npm install &>>$LOG_FILE
 STAT $?
 
-chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
+SYSTEMD_SETUP
 
-echo "Update systemd file"
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' e 's/DBHOST/mysql.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
-STAT $?
-
-echo "Setup ${Component} systemd file"
-mv /home/roboshop/${Component}/systemd.service /etc/systemd/system/${Component}.service &>>$LOG_FILE
-STAT $?
-
-echo "Start ${Component}"
-systemctl daemon-reload &>>$LOG_FILE
-systemctl enable ${Component}&>>$LOG_FILE
-systemctl restart ${Component} &>>$LOG_FILE
-STAT $
 }
 JAVA()
 {
@@ -86,5 +90,5 @@ mvn clean package &>>$LOG_FILE
 mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
 STAT $?
 
-
+SYSTEMD_SETUP
 }
