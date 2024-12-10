@@ -17,7 +17,24 @@ STAT $?
 DEFAULT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log |awk '{print $NF}')
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('RoboShop@1');
 uninstall plugin validate_password;" >/tmp/pass.sql
+STAT $?
 
 echo "Change Default password"
-mysql -uroot -p"${DEFAULT_PASSWORD}" >/tmp/pass.sql
+echo "show databases;" | mysql -uroot -pRoboShop@1 &>>$LOG_FILE
+if [ $? -ne 0 ]; then
+  mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" >/tmp/pass.sql &>>$LOG_FILE
+fi
+STAT $?
+
+echo "Download the schema"
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>$LOG_FILE
+STAT $?
+
+echo "Extract Schema File"
+cd /tmp
+unzip -o mysql.zip &>>$LOG_FILE
+STAT $?
+
+echo "Load Schema"
+mysql -uroot -pRoboShop@1 <mysql-main/shipping.sql  &>>$LOG_FILE
 STAT $?
