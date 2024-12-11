@@ -9,8 +9,9 @@ yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erl
 STAT $?
 
 echo "Start RabbitMQ"
-systemctl enable rabbitmq-server
-systemctl start rabbitmq-server
+systemctl enable rabbitmq-server &>>$LOG_FILE
+systemctl start rabbitmq-server &>>$LOG_FILE
+STAT $?
 
 echo "Create Application User"
 rabbitmqctl list_users | grep roboshop &>>$LOG_FILE
