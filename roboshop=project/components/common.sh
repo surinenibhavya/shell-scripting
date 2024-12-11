@@ -92,3 +92,27 @@ STAT $?
 
 SYSTEMD_SETUP
 }
+
+PYTHON()
+{
+  COMPONENT=$1
+
+  echo "Install Python"
+  yum install python36 gcc python3-devel -y &>>$LOG_FILE
+  STAT $?
+
+  APP_USER_SETUP_WITH_APP
+
+  echo "Install Python Dependencies for ${COMPONENT}"
+  cd /home/roboshop/${COMPONENT}
+  pip3 install -r requirements.txt &>>$LOG_FILE
+  STAT $?
+
+  echo "Update Application Config"
+  USER_ID=$(id -u roboshop)
+  GROUP_ID=$(id -g roboshop)
+  sed -i -e "/uid/ c uid = ${USER_ID}" -e "/gid/ c gid = ${GROUP_ID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini
+  STAT $?
+
+  SYSTEMD_SETUP
+}
