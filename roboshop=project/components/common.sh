@@ -116,3 +116,23 @@ PYTHON()
 
   SYSTEMD_SETUP
 }
+
+GOLANG()
+{
+  COMPONENT=$1
+
+  echo "Install Golang"
+  yum install golang -y&>>$LOG_FILE
+  STAT $?
+
+  APP_USER_SETUP_WITH_APP
+
+  echo "Building golang code"
+  cd /home/roboshop/${COMPONENT}
+  go mod init dispatch
+  go get
+  go build
+  STAT $?
+
+   SYSTEMD_SETUP
+}
