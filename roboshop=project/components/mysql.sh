@@ -5,7 +5,7 @@ curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/robo
 STAT $?
 
 echo "Install MySQL Server"
-yum install mysql-community-server -y &>>$LOG_FILE
+sudo yum install mysql-community-server -y &>>$LOG_FILE
 STAT $?
 
 echo "Start MySQL Service"
