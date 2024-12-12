@@ -33,7 +33,7 @@ APP_USER_SETUP_WITH_APP()
  STAT $?
 
  echo "Copy ${Component} content"
- cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE &>>$LOG_FILE
+ cp -r ${Component}-main /home/roboshop/${Component} &>>$LOG_FILE
  STAT $?
 }
 SYSTEMD_SETUP()
