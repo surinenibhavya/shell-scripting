@@ -39,7 +39,7 @@ echo "Create App user"
   STAT $?
 
   echo "Setup catalogue systemd file"
-  mv /home/roboshop/catalogue /systemd.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
+  mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
   STAT $?
 
   echo "Start catalogue "
