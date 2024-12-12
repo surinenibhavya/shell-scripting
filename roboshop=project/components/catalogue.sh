@@ -29,7 +29,7 @@ rm -rf  /home/roboshop/catalogue &>>$LOG_FILE
 STAT $?
 
 echo "Copy catalogue content"
-cp -r Component-main /home/roboshop/catalogue &>>$LOG_FILE
+cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
 STAT $?
 
 
