@@ -41,7 +41,7 @@ SYSTEMD_SETUP()
  chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
   echo "Update systemd file"
- sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' e 's/DBHOST/mysql.roboshop.internal/' e 's/CARTHOST/cart.roboshop.internal' e 's/USERHOST/user.roboshop.internal/' e 's/AMQPHOST/rabbitmq.roboshop.internal' /home/roboshop/${Component}/systemd.service &>>$LOG_FILE
+ sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' e 's/DBHOST/mysql.roboshop.internal/' e 's/CARTHOST/cart.roboshop.internal' e 's/USERHOST/user.roboshop.internal/' e 's/AMQPHOST/rabbitmq.roboshop.internal' -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/'/home/roboshop/${Component}/systemd.service &>>$LOG_FILE
  STAT $?
 
  echo "Setup ${Component} systemd file"
