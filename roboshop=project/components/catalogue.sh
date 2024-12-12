@@ -28,7 +28,23 @@ echo "Create App user"
  rm -rf  /home/roboshop/catalogue  &>>$LOG_FILE
  STAT $?
 
- echo "Copy $catalogue  content"
- cp -r ${catalogue }-main /home/roboshop/${catalogue } &>>$LOG_FILE 
+ echo "Copy catalogue content"
+ cp -r ${catalogue }-main /home/roboshop/${catalogue } &>>$LOG_FILE
  STAT $?
-}
+
+ chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
+
+  echo "Update catalogue  SystemD file"
+  sudo sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/catalogue /systemd.service &>>$LOG_FILE
+  STAT $?
+
+  echo "Setup catalogue systemd file"
+  mv /home/roboshop/catalogue /systemd.service /etc/systemd/system/catalogue .service &>>$LOG_FILE
+  STAT $?
+
+  echo "Start catalogue "
+  systemctl daemon-reload &>>$LOG_FILE
+  systemctl enable catalogue &>>$LOG_FILE
+  systemctl restart catalogue &>>$LOG_FILE
+  STAT $
+
