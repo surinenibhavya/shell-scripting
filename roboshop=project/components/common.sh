@@ -15,7 +15,7 @@ APP_USER_SETUP_WITH_APP()
  echo "Create App user"
  id roboshop &>>$LOG_FILE
  if [ $? -ne 0 ]; then
- useradd roboshop &>>$LOG_FILE
+  useradd roboshop &>>$LOG_FILE
  fi
  STAT $?
 
