@@ -40,7 +40,7 @@ SYSTEMD_SETUP()
 {
  chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
- echo "Update ${COMPONENT} SystemD file"
+ echo "Update ${Component} SystemD file"
  sudo sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' /home/roboshop/${COMPONENT}/systemd.service &>>$LOG_FILE
  STAT $?
 
