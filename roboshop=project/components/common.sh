@@ -58,7 +58,8 @@ SYSTEMD_SETUP() {
 
 }
 
-NODEJS() {
+NODEJS()
+{
   COMPONENT=$1
   echo "Setup NodeJS repo"
   curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>$LOG_FILE
