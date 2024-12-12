@@ -66,7 +66,7 @@ NODEJS()
   STAT $?
 
   echo "Install NodeJS"
-  yum install nodejs gcc-c++ -y &>>$LOG_FILE
+  yum install nodejs -y &>>$LOG_FILE
   STAT $?
 
   APP_USER_SETUP_WITH_APP
