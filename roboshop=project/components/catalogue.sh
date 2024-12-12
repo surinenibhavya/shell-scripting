@@ -29,7 +29,7 @@ echo "Create App user"
  STAT $?
 
  echo "Copy catalogue content"
- cp -r ${catalogue }-main /home/roboshop/${catalogue } &>>$LOG_FILE
+ cp -r ${catalogue}-main /home/roboshop/${catalogue} &>>$LOG_FILE
  STAT $?
 
  chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
