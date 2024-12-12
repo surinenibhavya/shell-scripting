@@ -73,7 +73,7 @@ NODEJS()
  npm install &>>$LOG_FILE
  STAT $?
 
-SYSTEMD_SETUP
+ SYSTEMD_SETUP
 
 }
 JAVA()
