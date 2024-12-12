@@ -51,7 +51,9 @@ SYSTEMD_SETUP() {
   STAT $?
 
   echo "Start ${COMPONENT} Service"
-  systemctl daemon-relaod  &>>$LOG_FILE && systemctl enable ${COMPONENT} &>>$LOG_FILE && systemctl restart ${COMPONENT} &>>$LOG_FILE
+  systemctl daemon-relaod  &>>$LOG_FILE
+  systemctl enable ${COMPONENT} &>>$LOG_FILE
+  systemctl restart ${COMPONENT} &>>$LOG_FILE
   STAT $?
 
 }
