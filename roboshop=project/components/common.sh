@@ -56,22 +56,22 @@ SYSTEMD_SETUP()
 }
 NODEJS()
 {
-Component=$1
-echo "Setup NodeJS repo"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
-STAT $?
+ Component=$1
+ echo "Setup NodeJS repo"
+ curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+ STAT $?
 
-echo "Install NodeJS"
-yum install nodejs -y &>>$LOG_FILE
-STAT $?
+ echo "Install NodeJS"
+ yum install nodejs -y &>>$LOG_FILE
+ STAT $?
 
-APP_USER_SETUP_WITH_APP
+ APP_USER_SETUP_WITH_APP
 
 
-echo "Install NodeJS Dependencies"
-cd /home/roboshop/${Component}
-npm install &>>$LOG_FILE
-STAT $?
+ echo "Install NodeJS Dependencies"
+ cd /home/roboshop/${Component}
+ npm install &>>$LOG_FILE
+ STAT $?
 
 SYSTEMD_SETUP
 
